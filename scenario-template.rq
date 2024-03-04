@@ -1,0 +1,46 @@
+PREFIX bdd: <https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#>
+PREFIX time: <https://hbrs-sesame.github.io/metamodels/time#>
+
+CONSTRUCT {
+    ?scenarioTmpl
+        bdd:ref-object ?taskObject ;
+        bdd:ref-workspace ?taskWorkspace ;
+        bdd:ref-agent ?taskAgent ;
+        bdd:given ?givenClause ;
+        bdd:when ?when ;
+        bdd:then ?thenClause .
+    ?clause
+        bdd:ref-object ?taskObject ;
+        bdd:ref-workspace ?taskWorkspace ;
+        bdd:ref-agent ?taskAgent ;
+        bdd:holds-at ?specificTc .
+    ?specificTc a ?tcType ;
+        bdd:of-event ?tcEvent .
+}
+WHERE {
+    ?scenarioTmpl a bdd:ScenarioTemplate ;
+        bdd:of-scenario ?scenario ;
+        bdd:has-clause ?clause .
+
+    ?clause a bdd:FluentClause ;
+        bdd:holds ?fluent ;
+        bdd:holds-at ?timeConstraint .
+    OPTIONAL { ?clause bdd:ref-object ?taskObject }
+    OPTIONAL { ?clause bdd:ref-workspace ?taskWorkspace }
+    OPTIONAL { ?clause bdd:ref-agent ?taskAgent }
+
+    ?timeConstraint ^ bdd:of-constraint ?specificTc .
+    ?specificTc a ?tcType .
+    OPTIONAL { ?specificTc time:of-event ?tcEvent }
+
+    ?scenario a bdd:Scenario ;
+        bdd:given ?given ;
+        bdd:when ?when ;
+        bdd:then ?then .
+
+    ?given ^ bdd:clause-of ?givenClause .
+    ?givenClause ^ bdd:has-clause ?scenarioTmpl .
+
+    ?then ^ bdd:clause-of ?thenClause .
+    ?thenClause ^ bdd:has-clause ?scenarioTmpl .
+}
