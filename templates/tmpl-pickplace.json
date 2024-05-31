@@ -4,80 +4,78 @@
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/behaviour.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/time.json",
         {
-            "@base": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/"
+            "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/"
         }
     ],
     "@graph": [
-        { "@id": "bhv-pickplace", "@type": "bhv:Behaviour" },
+        { "@id": "tmpl:bhv-pickplace", "@type": "bhv:Behaviour" },
 
-        { "@id": "evt-pick-start", "@type": "time:Event" },
-        { "@id": "evt-place-end", "@type": "time:Event" },
+        { "@id": "tmpl:evt-pick-start", "@type": "time:Event" },
+        { "@id": "tmpl:evt-place-end", "@type": "time:Event" },
 
-        { "@id": "pickplace-given", "@type": "bdd:Given" },
-        { "@id": "pickplace-when", "@type": "bdd:When" },
-        { "@id": "pickplace-then", "@type": "bdd:Then" },
+        { "@id": "tmpl:pickplace-given", "@type": "bdd:Given" },
+        { "@id": "tmpl:pickplace-when", "@type": "bdd:When" },
+        { "@id": "tmpl:pickplace-then", "@type": "bdd:Then" },
         {
-            "@id": "scenario-pickplace", "@type": "bdd:Scenario",
-            "of-behaviour": "bhv-pickplace",
-            "given": "pickplace-given",
-            "when": "pickplace-when",
-            "then": "pickplace-then"
+            "@id": "tmpl:scenario-pickplace", "@type": "bdd:Scenario",
+            "of-behaviour": "tmpl:bhv-pickplace",
+            "given": "tmpl:pickplace-given",
+            "when": "tmpl:pickplace-when",
+            "then": "tmpl:pickplace-then"
         },
 
-        { "@id": "var-pick-ws", "@type": "bdd:ScenarioVariable" },
-        { "@id": "var-place-ws", "@type": "bdd:ScenarioVariable" },
-        { "@id": "var-target-obj", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-pick-ws", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-place-ws", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-target-obj", "@type": "bdd:ScenarioVariable" },
 
-        { "@id": "pred-located-at-pick-ws", "@type": "bdd:LocatedAtPredicate" },
+        { "@id": "tmpl:pred-located-at-pick-ws", "@type": "bdd:LocatedAtPredicate" },
         {
-          "@id": "fl-located-at", "@type": "bdd:Fluent",
-          "predicate": "pred-located-at"
-        },
-
-        {
-           "@id": "ftc-before-pick", "@type": "bdd:FluentTimeConstraint",
-           "of-fluent": "fl-located-at"
-        },
-        {
-           "@id": "ftc-after-place", "@type": "bdd:FluentTimeConstraint",
-           "of-fluent": "fl-located-at"
+          "@id": "tmpl:fl-located-at", "@type": "bdd:Fluent",
+          "predicate": "tmpl:pred-located-at"
         },
 
         {
-           "@id": "bec-before-evt-pick", "@type": "bdd:BeforeEventConstraint",
-           "of-event": "evt-pick-start",
-           "of-constraint": "ftc-before-pick"
+           "@id": "tmpl:ftc-before-pick", "@type": "time:TimeConstraint"
         },
         {
-           "@id": "bec-after-evt-place", "@type": "bdd:AfterEventConstraint",
-           "of-event": "evt-place-end",
-           "of-constraint": "ftc-after-place"
+           "@id": "tmpl:ftc-after-place", "@type": "time:TimeConstraint"
         },
 
         {
-           "@id": "flc-located-at-pick-ws", "@type": "bdd:FluentClause",
-           "clause-of": "pickplace-given",
-           "holds": "fl-located-at",
-           "holds-at": "ftc-before-pick",
-           "ref-object": "var-target-obj",
-           "ref-workspace": "var-pick-ws"
+           "@id": "tmpl:bec-before-evt-pick", "@type": "time:BeforeEventConstraint",
+           "ref-event": "tmpl:evt-pick-start",
+           "of-constraint": "tmpl:ftc-before-pick"
         },
         {
-           "@id": "flc-located-at-place-ws", "@type": "bdd:FluentClause",
-           "clause-of": "pickplace-then",
-           "holds": "fl-located-at",
-           "holds-at": "ftc-after-place",
-           "ref-object": "var-target-obj",
-           "ref-workspace": "var-place-ws"
+           "@id": "tmpl:bec-after-evt-place", "@type": "time:AfterEventConstraint",
+           "ref-event": "tmpl:evt-place-end",
+           "of-constraint": "tmpl:ftc-after-place"
         },
 
-        { "@id": "scn-pickplace", "@type": "bdd:Scene" },
         {
-            "@id": "tmpl-pickplace", "@type": "bdd:ScenarioTemplate",
-            "of-scenario": "scenario-pickplace",
-            "has-scene": "scn-pickplace",
+           "@id": "tmpl:flc-located-at-pick-ws", "@type": "bdd:FluentClause",
+           "clause-of": "tmpl:pickplace-given",
+           "holds": "tmpl:fl-located-at",
+           "holds-at": "tmpl:ftc-before-pick",
+           "ref-object": "tmpl:var-target-obj",
+           "ref-workspace": "tmpl:var-pick-ws"
+        },
+        {
+           "@id": "tmpl:flc-located-at-place-ws", "@type": "bdd:FluentClause",
+           "clause-of": "tmpl:pickplace-then",
+           "holds": "tmpl:fl-located-at",
+           "holds-at": "tmpl:ftc-after-place",
+           "ref-object": "tmpl:var-target-obj",
+           "ref-workspace": "tmpl:var-place-ws"
+        },
+
+        { "@id": "tmpl:scn-pickplace", "@type": "bdd:Scene" },
+        {
+            "@id": "tmpl:tmpl-pickplace", "@type": "bdd:ScenarioTemplate",
+            "of-scenario": "tmpl:scenario-pickplace",
+            "has-scene": "tmpl:scn-pickplace",
             "has-clause": [
-                "flc-located-at-pick-ws", "flc-located-at-place-ws"
+                "tmpl:flc-located-at-pick-ws", "tmpl:flc-located-at-place-ws"
            ]
         }
     ]

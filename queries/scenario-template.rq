@@ -15,7 +15,7 @@ CONSTRUCT {
         bdd:ref-agent ?taskAgent ;
         bdd:holds-at ?specificTc .
     ?specificTc a ?tcType ;
-        bdd:of-event ?tcEvent .
+        time:ref-event ?tcEvent .
 }
 WHERE {
     ?scenarioTmpl a bdd:ScenarioTemplate ;
@@ -29,9 +29,9 @@ WHERE {
     OPTIONAL { ?clause bdd:ref-workspace ?taskWorkspace }
     OPTIONAL { ?clause bdd:ref-agent ?taskAgent }
 
-    ?timeConstraint ^ bdd:of-constraint ?specificTc .
+    ?timeConstraint ^ time:of-constraint ?specificTc .
     ?specificTc a ?tcType .
-    OPTIONAL { ?specificTc time:of-event ?tcEvent }
+    OPTIONAL { ?specificTc time:ref-event ?tcEvent }
 
     ?scenario a bdd:Scenario ;
         bdd:given ?given ;

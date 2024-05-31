@@ -1,0 +1,11 @@
+{
+    "@context": {
+        "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
+        "time": "https://hbrs-sesame.github.io/metamodels/time#",
+        "bdd": "https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#",
+        "name": "@id",
+        "data": "@graph",
+        "type": "@type"
+    },
+    "data": {}
+}
