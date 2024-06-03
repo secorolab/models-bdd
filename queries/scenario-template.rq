@@ -1,5 +1,5 @@
-PREFIX bdd: <https://hbrs-sesame.github.io/metamodels/acceptance-criteria/bdd#>
-PREFIX time: <https://hbrs-sesame.github.io/metamodels/time#>
+PREFIX bdd: <https://secorolab.github.io/metamodels/acceptance-criteria/bdd#>
+PREFIX time: <https://secorolab.github.io/metamodels/time#>
 
 CONSTRUCT {
     ?scenarioTmpl

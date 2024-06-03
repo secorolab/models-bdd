@@ -23,21 +23,6 @@
             "@id": "place-ws-variation", "@type": "task:TaskVariation",
             "of-variable": "tmpl:var-place-ws",
             "can-be": [ "lab:ws-table", "lab:ws-shelf" ]
-        },
-        {
-            "@id": "scn-pickplace-objects", "@type": "bdd:SceneHasObjects",
-            "of-scene": "tmpl:scn-pickplace",
-            "has-object": [
-               "lab:obj-box", "lab:obj-bottle", "lab:obj-ball",
-               "lab:obj-table", "lab:obj-shelf"
-            ]
-        },
-        {
-            "@id": "scn-pickplace-workspaces", "@type": "bdd:SceneHasWorkspaces",
-            "of-scene": "tmpl:scn-pickplace",
-            "has-workspace": [
-               "lab:ws-table", "lab:ws-shelf"
-            ]
         }
     ]
 }

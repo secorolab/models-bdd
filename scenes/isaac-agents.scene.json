@@ -1,0 +1,17 @@
+{
+    "@context": [
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/agent.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
+        {
+            "isaac": "https://secorolab.github.io/models/agents/isaac-sim/",
+            "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "scene:scn-pickplace-isaac-agents", "@type": "bdd:SceneHasAgents",
+            "of-scene": "scene:scn-pickplace",
+            "has-agent": [ "isaac:panda", "isaac:ur10" ]
+        }
+    ]
+}

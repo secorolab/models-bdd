@@ -4,7 +4,8 @@
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/behaviour.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/time.json",
         {
-            "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/"
+            "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
+            "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/"
         }
     ],
     "@graph": [
@@ -28,10 +29,8 @@
         { "@id": "tmpl:var-place-ws", "@type": "bdd:ScenarioVariable" },
         { "@id": "tmpl:var-target-obj", "@type": "bdd:ScenarioVariable" },
 
-        { "@id": "tmpl:pred-located-at-pick-ws", "@type": "bdd:LocatedAtPredicate" },
         {
-          "@id": "tmpl:fl-located-at", "@type": "bdd:Fluent",
-          "predicate": "tmpl:pred-located-at"
+          "@id": "tmpl:fl-located-at", "@type": ["bdd:Fluent", "bdd:LocatedAtPredicate"]
         },
 
         {
@@ -69,11 +68,10 @@
            "ref-workspace": "tmpl:var-place-ws"
         },
 
-        { "@id": "tmpl:scn-pickplace", "@type": "bdd:Scene" },
         {
             "@id": "tmpl:tmpl-pickplace", "@type": "bdd:ScenarioTemplate",
             "of-scenario": "tmpl:scenario-pickplace",
-            "has-scene": "tmpl:scn-pickplace",
+            "has-scene": "scene:scn-pickplace",
             "has-clause": [
                 "tmpl:flc-located-at-pick-ws", "tmpl:flc-located-at-place-ws"
            ]
