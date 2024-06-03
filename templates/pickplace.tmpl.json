@@ -2,6 +2,7 @@
     "@context": [
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/behaviour.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/task.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/time.json",
         {
             "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
@@ -10,6 +11,7 @@
     ],
     "@graph": [
         { "@id": "tmpl:bhv-pickplace", "@type": "bhv:Behaviour" },
+        { "@id": "tmpl:task-pickplace", "@type": "task:Task" },
 
         { "@id": "tmpl:evt-pick-start", "@type": "time:Event" },
         { "@id": "tmpl:evt-place-end", "@type": "time:Event" },
@@ -28,6 +30,7 @@
         { "@id": "tmpl:var-pick-ws", "@type": "bdd:ScenarioVariable" },
         { "@id": "tmpl:var-place-ws", "@type": "bdd:ScenarioVariable" },
         { "@id": "tmpl:var-target-obj", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-agent", "@type": "bdd:ScenarioVariable" },
 
         {
           "@id": "tmpl:fl-located-at", "@type": ["bdd:Fluent", "bdd:LocatedAtPredicate"]
