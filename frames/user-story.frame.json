@@ -1,0 +1,27 @@
+{
+    "@context": {
+        "time": "https://secorolab.github.io/metamodels/time#",
+        "env": "https://secorolab.github.io/metamodels/environment#",
+        "agn": "https://secorolab.github.io/metamodels/agent#",
+        "bdd": "https://secorolab.github.io/metamodels/acceptance-criteria/bdd#",
+
+        "var": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
+        "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
+        "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/",
+        "lab-env": "https://secorolab.github.io/models/environments/secorolab/",
+
+        "name": "@id",
+        "data": "@graph",
+        "type": "@type",
+
+        "criteria": "bdd:has-criteria",
+        "scene": "bdd:has-scene",
+        "variations": "bdd:has-variation",
+        "objects": "env:has-object",
+        "workspaces": "env:has-workspace",
+        "agents": "agn:has-agent"
+    },
+    "data": {
+        "criteria": {}
+    }
+}

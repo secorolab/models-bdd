@@ -4,18 +4,19 @@
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
         {
             "isaac": "https://secorolab.github.io/models/agents/isaac-sim/",
-            "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/"
+            "scene-lab": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/",
+            "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/isaac/"
         }
     ],
     "@graph": [
         {
             "@id": "scene:scn-pickplace-isaac-panda", "@type": "bdd:SceneHasAgents",
-            "of-scene": "scene:scn-pickplace",
+            "of-scene": "scene-lab:scn-pickplace",
             "has-agent": [ "isaac:panda" ]
         },
         {
             "@id": "scene:scn-pickplace-isaac-ur10", "@type": "bdd:SceneHasAgents",
-            "of-scene": "scene:scn-pickplace",
+            "of-scene": "scene-lab:scn-pickplace",
             "has-agent": [ "isaac:ur10" ]
         }
     ]

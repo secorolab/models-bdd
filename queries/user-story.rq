@@ -1,0 +1,89 @@
+PREFIX bdd: <https://secorolab.github.io/metamodels/acceptance-criteria/bdd#>
+PREFIX time: <https://secorolab.github.io/metamodels/time#>
+PREFIX agn: <https://secorolab.github.io/metamodels/agent#>
+PREFIX env: <https://secorolab.github.io/metamodels/environment#>
+
+CONSTRUCT {
+    ?us bdd:has-criteria ?scenarioVar .
+    ?scenarioVar
+        bdd:of-scenario ?scenario ;
+        bdd:has-scene ?scene ;
+        bdd:has-variation ?scrVariable .
+    ?scene
+        env:has-object ?sceneObj ;
+        env:has-workspace ?sceneWs ;
+        agn:has-agent ?sceneAgent .
+    ?scrVariable bdd:can-be ?scrVariableVal .
+    ?scenario
+        bdd:ref-object ?taskObject ;
+        bdd:ref-workspace ?taskWorkspace ;
+        bdd:ref-agent ?taskAgent ;
+        bdd:given ?givenClause ;
+        bdd:when ?when ;
+        bdd:then ?thenClause .
+    ?clause
+        bdd:ref-object ?taskObject ;
+        bdd:ref-workspace ?taskWorkspace ;
+        bdd:ref-agent ?taskAgent ;
+        bdd:holds ?fluent ;
+        bdd:holds-at ?specificTc .
+    ?fluent a ?fluentType .
+    ?specificTc a ?tcType ;
+        time:ref-event ?tcEvent .
+}
+WHERE {
+    ?us a bdd:UserStory ;
+        bdd:has-criteria ?scenarioVar .
+
+    ?scenarioVar a bdd:ScenarioVariant ;
+        bdd:of-template ?scenarioTmpl ;
+        bdd:has-scene ?sceneElem ;
+        bdd:has-variation ?taskVariation .
+
+    ?scenarioTmpl a bdd:ScenarioTemplate ;
+        bdd:of-scenario ?scenario ;
+        bdd:has-scene ?scene ;
+        bdd:has-clause ?clause .
+
+    ?sceneElem bdd:of-scene ?scene .
+    OPTIONAL {
+        ?sceneElem a bdd:SceneHasObjects ;
+            env:has-object ?sceneObj .
+    }
+    OPTIONAL {
+        ?sceneElem a bdd:SceneHasWorkspaces ;
+            env:has-workspace ?sceneWs .
+    }
+    OPTIONAL {
+        ?sceneElem a bdd:SceneHasAgents ;
+            agn:has-agent ?sceneAgent .
+    }
+
+    ?taskVariation a bdd:TaskVariation ;
+        bdd:of-variable ?scrVariable ;
+        bdd:can-be ?scrVariableVal .
+
+    ?clause a bdd:FluentClause ;
+        bdd:holds ?fluent ;
+        bdd:holds-at ?timeConstraint .
+    OPTIONAL { ?clause bdd:ref-object ?taskObject }
+    OPTIONAL { ?clause bdd:ref-workspace ?taskWorkspace }
+    OPTIONAL { ?clause bdd:ref-agent ?taskAgent }
+
+    ?fluent a ?fluentType .
+
+    ?timeConstraint ^ time:of-constraint ?specificTc .
+    ?specificTc a ?tcType .
+    OPTIONAL { ?specificTc time:ref-event ?tcEvent }
+
+    ?scenario a bdd:Scenario ;
+        bdd:given ?given ;
+        bdd:when ?when ;
+        bdd:then ?then .
+
+    ?given ^ bdd:clause-of ?givenClause .
+    ?givenClause ^ bdd:has-clause ?scenarioTmpl .
+
+    ?then ^ bdd:clause-of ?thenClause .
+    ?thenClause ^ bdd:has-clause ?scenarioTmpl .
+}

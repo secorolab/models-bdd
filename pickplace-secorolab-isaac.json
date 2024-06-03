@@ -3,11 +3,12 @@
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/task.json",
         {
-            "@base": "https://secorolab.github.io/models/acceptance-criteria/bdd/pickplace-secorolab-isaac/",
+            "@base": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
             "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
             "isaac": "https://secorolab.github.io/models/agents/isaac-sim/",
             "lab": "https://secorolab.github.io/models/environments/secorolab/",
-            "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/"
+            "scene-lab": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/",
+            "scene-isaac": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/isaac/"
         }
     ],
     "@graph": [
@@ -37,11 +38,11 @@
         },
         {
             "@id": "scr-var-panda-pickplace", "@type": "bdd:ScenarioVariant",
-            "of-scenario": "tmpl:scenario-pickplace",
+            "of-template": "tmpl:tmpl-pickplace",
             "has-scene": [
-                "scene:scn-pickplace-secorolab-objects",
-                "scene:scn-pickplace-secorolab-workspaces",
-                "scene:scn-pickplace-isaac-panda"
+                "scene-lab:scn-pickplace-secorolab-objects",
+                "scene-lab:scn-pickplace-secorolab-workspaces",
+                "scene-isaac:scn-pickplace-isaac-panda"
             ],
             "has-variation": [
                 "var-target-obj", "var-agent", "var-pick-ws", "var-place-ws"
