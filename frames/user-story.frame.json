@@ -15,6 +15,10 @@
         "type": "@type",
 
         "criteria": "bdd:has-criteria",
+        "scenario": "bdd:of-scenario",
+        "given": "bdd:given",
+        "when": "bdd:when",
+        "then": "bdd:then",
         "scene": "bdd:has-scene",
         "variations": "bdd:has-variation",
         "objects": "env:has-object",

@@ -42,33 +42,46 @@ WHERE {
 
     ?scenarioTmpl a bdd:ScenarioTemplate ;
         bdd:of-scenario ?scenario ;
-        bdd:has-scene ?scene ;
-        bdd:has-clause ?clause .
+        bdd:has-scene ?scene .
 
     ?sceneElem bdd:of-scene ?scene .
-    OPTIONAL {
-        ?sceneElem a bdd:SceneHasObjects ;
-            env:has-object ?sceneObj .
-    }
-    OPTIONAL {
-        ?sceneElem a bdd:SceneHasWorkspaces ;
-            env:has-workspace ?sceneWs .
-    }
-    OPTIONAL {
-        ?sceneElem a bdd:SceneHasAgents ;
-            agn:has-agent ?sceneAgent .
+    {
+        {
+            ?sceneElem a bdd:SceneHasObjects ;
+                env:has-object ?sceneObj .
+        }
+        UNION
+        {
+            ?sceneElem a bdd:SceneHasWorkspaces ;
+                env:has-workspace ?sceneWs .
+        }
+        UNION
+        {
+            ?sceneElem a bdd:SceneHasAgents ;
+                agn:has-agent ?sceneAgent .
+        }
     }
 
     ?taskVariation a bdd:TaskVariation ;
         bdd:of-variable ?scrVariable ;
         bdd:can-be ?scrVariableVal .
 
+    {
+        { ?scenarioVar bdd:has-clause ?clause . }
+        UNION
+        { ?scenarioTmpl bdd:has-clause ?clause . }
+    }
+
     ?clause a bdd:FluentClause ;
         bdd:holds ?fluent ;
         bdd:holds-at ?timeConstraint .
-    OPTIONAL { ?clause bdd:ref-object ?taskObject }
-    OPTIONAL { ?clause bdd:ref-workspace ?taskWorkspace }
-    OPTIONAL { ?clause bdd:ref-agent ?taskAgent }
+    {
+        { ?clause bdd:ref-object ?taskObject }
+        UNION
+        { ?clause bdd:ref-workspace ?taskWorkspace }
+        UNION
+        { ?clause bdd:ref-agent ?taskAgent }
+    }
 
     ?fluent a ?fluentType .
 
@@ -82,8 +95,16 @@ WHERE {
         bdd:then ?then .
 
     ?given ^ bdd:clause-of ?givenClause .
-    ?givenClause ^ bdd:has-clause ?scenarioTmpl .
+    {
+        { ?givenClause ^ bdd:has-clause ?scenarioTmpl . }
+        UNION
+        { ?givenClause ^ bdd:has-clause ?scenarioVar . }
+    }
 
     ?then ^ bdd:clause-of ?thenClause .
-    ?thenClause ^ bdd:has-clause ?scenarioTmpl .
+    {
+        { ?thenClause ^ bdd:has-clause ?scenarioTmpl . }
+        UNION
+        { ?thenClause ^ bdd:has-clause ?scenarioVar . }
+    }
 }
