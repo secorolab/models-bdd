@@ -1,0 +1,59 @@
+Feature: {{ data.name }}
+{%- if 'scene' in data %}
+  Background:
+  {%- for scene_name, scene_data in data.scene.data.items() -%}
+    {%- if 'objects' in scene_data %}
+    Given a set of objects
+      | name |
+      {%- if 'name' in scene_data.objects -%}
+      {# Only one object #}
+      | {{ scene_data.objects.name }} |
+      {%- else %}
+      {% for obj_data in scene_data.objects -%}
+        | {{ obj_data.name }} |
+      {% endfor %}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if 'workspaces' in scene_data %}
+    Given a set of workspaces
+      | name |
+      {%- if 'name' in scene_data.workspaces -%}
+      {# Only one workspace #}
+      | {{ scene_data.workspaces.name }} |
+      {%- else %}
+      {% for ws_data in scene_data.workspaces -%}
+        | {{ ws_data.name }} |
+      {% endfor %}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if 'agents' in scene_data %}
+    Given a set of agents
+      | name |
+      {%- if 'name' in scene_data.agents -%}
+      {# Only one agent #}
+      | {{ scene_data.agents.name }} |
+      {%- else %}
+      {% for agn_data in scene_data.agents -%}
+        | {{ agn_data.name }} |
+      {% endfor %}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor %}
+    Given specified objects, workspaces and agents are available
+{%- endif %}
+
+{% for scenario_data in data.criteria %}
+  Scenario Outline: {{ scenario_data.name }}
+    {% for clause in scenario_data.given_clauses %}
+    {{ clause|safe }}{% endfor %}
+
+    When "{{ scenario_data.when_event }}"
+    {% for clause in scenario_data.then_clauses %}
+    {{ clause|safe }}{% endfor %}
+
+    Examples:
+    |{% for var_name in scenario_data.variables %} {{ var_name }} | {%- endfor %}
+    {% for var_data in scenario_data.can_be -%}
+      |{% for entity_name in var_data %} {{ entity_name }} |{% endfor %}
+    {% endfor %}
+{%- endfor -%}

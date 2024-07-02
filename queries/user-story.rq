@@ -9,7 +9,7 @@ CONSTRUCT {
         bdd:of-scenario ?scenario ;
         bdd:has-scene ?scene ;
         bdd:has-variation ?scrVariable .
-    ?scene
+    ?scene a ?sceneElemType ;
         env:has-object ?sceneObj ;
         env:has-workspace ?sceneWs ;
         agn:has-agent ?sceneAgent .
@@ -44,7 +44,8 @@ WHERE {
         bdd:of-scenario ?scenario ;
         bdd:has-scene ?scene .
 
-    ?sceneElem bdd:of-scene ?scene .
+    ?sceneElem a ?sceneElemType ;
+        bdd:of-scene ?scene .
     {
         {
             ?sceneElem a bdd:SceneHasObjects ;
