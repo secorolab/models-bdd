@@ -10,7 +10,7 @@
         }
     ],
     "@graph": [
-        { "@id": "tmpl:bhv-pickplace", "@type": "bhv:Behaviour" },
+        { "@id": "tmpl:bhv-pickplace", "@type": ["bhv:Behaviour", "bhv:Pick", "bhv:Place"] },
         { "@id": "tmpl:task-pickplace", "@type": "task:Task" },
 
         { "@id": "tmpl:evt-pick-start", "@type": "time:Event" },
@@ -22,6 +22,7 @@
         {
             "@id": "tmpl:scenario-pickplace", "@type": "bdd:Scenario",
             "of-behaviour": "tmpl:bhv-pickplace",
+            "of-task": "tmpl:task-pickplace",
             "given": "tmpl:pickplace-given",
             "when": "tmpl:pickplace-when",
             "then": "tmpl:pickplace-then"
@@ -33,42 +34,48 @@
         { "@id": "tmpl:var-agent", "@type": "bdd:ScenarioVariable" },
 
         {
-          "@id": "tmpl:fl-located-at", "@type": ["bdd:Fluent", "bdd:LocatedAtPredicate"]
+           "@id": "tmpl:ftc-before-pick", "@type": ["time:TimeConstraint", "time:BeforeEventConstraint"],
+           "before-event": "tmpl:evt-pick-start"
+        },
+        {
+           "@id": "tmpl:ftc-after-place", "@type": ["time:TimeConstraint", "time:AfterEventConstraint"],
+           "after-event": "tmpl:evt-place-end"
+        },
+        {
+           "@id": "tmpl:ftc-during-pickplace", "@type": ["time:TimeConstraint", "time:DuringEventsConstraint"],
+           "after-event": "tmpl:evt-pick-start", "before-event": "tmpl:evt-place-end"
         },
 
         {
-           "@id": "tmpl:ftc-before-pick", "@type": "time:TimeConstraint"
-        },
-        {
-           "@id": "tmpl:ftc-after-place", "@type": "time:TimeConstraint"
-        },
-
-        {
-           "@id": "tmpl:bec-before-evt-pick", "@type": "time:BeforeEventConstraint",
-           "ref-event": "tmpl:evt-pick-start",
-           "of-constraint": "tmpl:ftc-before-pick"
-        },
-        {
-           "@id": "tmpl:bec-after-evt-place", "@type": "time:AfterEventConstraint",
-           "ref-event": "tmpl:evt-place-end",
-           "of-constraint": "tmpl:ftc-after-place"
-        },
-
-        {
-           "@id": "tmpl:flc-located-at-pick-ws", "@type": "bdd:FluentClause",
+           "@id": "tmpl:flc-located-at-pick-ws", "@type": ["bdd:FluentClause", "bdd:LocatedAtPredicate"],
            "clause-of": "tmpl:pickplace-given",
-           "holds": "tmpl:fl-located-at",
            "holds-at": "tmpl:ftc-before-pick",
            "ref-object": "tmpl:var-target-obj",
            "ref-workspace": "tmpl:var-pick-ws"
         },
+
         {
-           "@id": "tmpl:flc-located-at-place-ws", "@type": "bdd:FluentClause",
+           "@id": "tmpl:flc-move-safely", "@type": ["bdd:FluentClause", "bdd:MoveSafelyPredicate"],
            "clause-of": "tmpl:pickplace-then",
-           "holds": "tmpl:fl-located-at",
+           "holds-at": "tmpl:ftc-during-pickplace",
+           "ref-agent": "tmpl:var-agent"
+        },
+
+        {
+           "@id": "tmpl:flc-located-at-place-ws", "@type": ["bdd:FluentClause", "bdd:LocatedAtPredicate"],
+           "clause-of": "tmpl:pickplace-then",
            "holds-at": "tmpl:ftc-after-place",
            "ref-object": "tmpl:var-target-obj",
            "ref-workspace": "tmpl:var-place-ws"
+        },
+
+        {
+            "@id": "tmpl:when-pickplace", "@type": "bdd:WhenBehaviour",
+            "of-behaviour": "tmpl:bhv-pickplace",
+            "clause-of": "tmpl:pickplace-when",
+            "target-obj": "tmpl:var-target-obj",
+            "target-agn": "tmpl:var-agent",
+            "target-ws": "tmpl:var-place-ws"
         },
 
         {
@@ -76,7 +83,8 @@
             "of-scenario": "tmpl:scenario-pickplace",
             "has-scene": "scene:scn-pickplace",
             "has-clause": [
-                "tmpl:flc-located-at-pick-ws", "tmpl:flc-located-at-place-ws"
+                "tmpl:flc-located-at-pick-ws", "tmpl:when-pickplace",
+                "tmpl:flc-move-safely", "tmpl:flc-located-at-place-ws"
            ]
         }
     ]

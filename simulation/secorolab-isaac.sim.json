@@ -1,0 +1,69 @@
+{
+    "@context": [
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/environment.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/agent.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/simulation.json",
+        "https://secorolab.github.io/metamodels/languages/python.json",
+        {
+            "lab-sim": "https://secorolab.github.io/models/simulation/isaac/"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "lab-sim:isaac-franka", "@type": [ "agn:AgentModel", "py:ModuleAttribute", "py:Class" ],
+            "module-name": "omni.isaac.franka", "attribute-name": "Franka"
+        },
+        {
+            "@id": "lab-sim:isaac-ur10", "@type": [ "agn:AgentModel", "py:ModuleAttribute", "py:Class" ],
+            "module-name": "omni.isaac.universal_robots", "attribute-name": "UR10"
+        },
+        {
+            "@id": "lab-sim:obj-ycb-cracker-box",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/003_cracker_box.usd"
+        },
+        {
+            "@id": "lab-sim:obj-ycb-sugar-box",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/004_sugar_box.usd"
+        },
+        {
+            "@id": "lab-sim:obj-ycb-tomato-soup-can",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/005_tomato_soup_can.usd"
+        },
+        {
+            "@id": "lab-sim:obj-ycb-mustard-bottle",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/006_mustard_bottle.usd"
+        },
+        {
+            "@id": "lab-sim:obj-ycb-mug",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/Mugs/SM_Mug_A2.usd"
+        },
+        {
+            "@id": "lab-sim:obj-klt-bin",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/KLT_Bin/small_KLT.usd"
+        },
+        {
+            "@id": "lab-sim:obj-thorlabs-table",
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "path": "/Isaac/Props/Mounts/ThorlabsTable/table_instanceable.usd"
+        },
+        {
+            "@id": "lab-sim:isaac-cuboid", "@type": [ "env:ObjectModel", "py:ModuleAttribute", "py:Class" ],
+            "module-name": "omni.isaac.core.objects", "attribute-name": "DynamicCuboid"
+        },
+        {
+            "@id": "lab-sim:isaac-cylinder", "@type": [ "env:ObjectModel", "py:ModuleAttribute", "py:Class" ],
+            "module-name": "omni.isaac.core.objects", "attribute-name": "DynamicCylinder"
+        },
+        {
+            "@id": "lab-sim:isaac-sphere", "@type": [ "env:ObjectModel", "py:ModuleAttribute", "py:Class" ],
+            "module-name": "omni.isaac.core.objects", "attribute-name": "DynamicSphere"
+        }
+    ]
+}

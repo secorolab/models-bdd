@@ -1,19 +1,23 @@
+# SPDX-License-Identifier:  MPL-2.0
 PREFIX bdd: <https://secorolab.github.io/metamodels/acceptance-criteria/bdd#>
 PREFIX time: <https://secorolab.github.io/metamodels/time#>
 PREFIX agn: <https://secorolab.github.io/metamodels/agent#>
 PREFIX env: <https://secorolab.github.io/metamodels/environment#>
+PREFIX bhv: <https://secorolab.github.io/metamodels/behaviour#>
 
 CONSTRUCT {
     ?us bdd:has-criteria ?scenarioVar .
     ?scenarioVar
+        bhv:of-behaviour ?behaviour ;
+        bdd:of-template ?scenarioTmpl ;
         bdd:of-scenario ?scenario ;
         bdd:has-scene ?scene ;
-        bdd:has-variation ?scrVariable .
+        bdd:has-variation ?taskVariation .
     ?scene a ?sceneElemType ;
         env:has-object ?sceneObj ;
         env:has-workspace ?sceneWs ;
         agn:has-agent ?sceneAgent .
-    ?scrVariable bdd:can-be ?scrVariableVal .
+    ?taskVariation a ?varType .
     ?scenario
         bdd:ref-object ?taskObject ;
         bdd:ref-workspace ?taskWorkspace ;
@@ -26,10 +30,9 @@ CONSTRUCT {
         bdd:ref-workspace ?taskWorkspace ;
         bdd:ref-agent ?taskAgent ;
         bdd:holds ?fluent ;
-        bdd:holds-at ?specificTc .
+        bdd:holds-at ?timeConstraint  .
     ?fluent a ?fluentType .
-    ?specificTc a ?tcType ;
-        time:ref-event ?tcEvent .
+    ?timeConstraint a ?tcType .
 }
 WHERE {
     ?us a bdd:UserStory ;
@@ -64,8 +67,7 @@ WHERE {
     }
 
     ?taskVariation a bdd:TaskVariation ;
-        bdd:of-variable ?scrVariable ;
-        bdd:can-be ?scrVariableVal .
+        a ?varType .
 
     {
         { ?scenarioVar bdd:has-clause ?clause . }
@@ -86,11 +88,11 @@ WHERE {
 
     ?fluent a ?fluentType .
 
-    ?timeConstraint ^ time:of-constraint ?specificTc .
-    ?specificTc a ?tcType .
-    OPTIONAL { ?specificTc time:ref-event ?tcEvent }
+    ?timeConstraint a time:TimeConstraint ;
+        a ?tcType .
 
     ?scenario a bdd:Scenario ;
+        bhv:of-behaviour ?behaviour ;
         bdd:given ?given ;
         bdd:when ?when ;
         bdd:then ?then .

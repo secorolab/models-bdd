@@ -1,0 +1,58 @@
+{
+    "@context": [
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/task.json",
+        {
+            "var": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
+            "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
+            "lab": "https://secorolab.github.io/models/environments/secorolab/",
+            "isaac-agn": "https://secorolab.github.io/models/agents/isaac-sim/",
+            "scene-lab": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/",
+            "scene-isaac": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/isaac/"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "var:comb-sort-objects", "@type": "bdd:Combination",
+            "repetition": "false",
+            "length": 3, "from": [
+                "lab:obj-cube1", "lab:obj-cube2", "lab:obj-cube3", "lab:obj-cube4",
+                "lab:obj-ball1", "lab:obj-ball2", "lab:obj-ball3"
+            ]
+        },
+        {
+            "@id": "var:comb-sort-workspaces", "@type": "bdd:Combination",
+            "repetition": "false",
+            "length": 2, "from": [ "lab:ws-bin1", "lab:ws-bin2" ]
+        },
+        {
+            "@id": "var:var-product", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
+            "of-task": "tmpl:task-sorting",
+            "variable-list": [
+                "tmpl:var-sort-objects", "tmpl:var-pick-ws", "tmpl:var-sort-workspaces", "tmpl:var-agent"
+            ],
+            "of-sets": [
+                "var:comb-sort-objects",
+                [ "lab:ws-table" ],
+                "var:comb-sort-workspaces",
+                [ "isaac-agn:panda" ]
+            ]
+        },
+        {
+            "@id": "var:scr-var-panda-sorting", "@type": "bdd:ScenarioVariant",
+            "of-template": "tmpl:tmpl-sorting",
+            "has-scene": [
+                "scene-lab:scn-sorting-secorolab-objects",
+                "scene-lab:scn-sorting-secorolab-workspaces",
+                "scene-isaac:scn-pickplace-isaac-panda"
+            ],
+            "has-variation": "var:var-product"
+        },
+        {
+            "@id": "var:us-sorting", "@type": "bdd:UserStory",
+            "has-criteria": [
+                "var:scr-var-panda-sorting"
+            ]
+        }
+    ]
+}

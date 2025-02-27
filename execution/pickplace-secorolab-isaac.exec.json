@@ -1,0 +1,122 @@
+{
+    "@context": [
+        "https://secorolab.github.io/metamodels/languages/python.json",
+        "https://secorolab.github.io/metamodels/probability/distribution.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/behaviour.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/environment.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/agent.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/simulation.json",
+        {
+            "lab": "https://secorolab.github.io/models/environments/secorolab/",
+            "lab-sim": "https://secorolab.github.io/models/simulation/isaac/",
+            "isaac-agn": "https://secorolab.github.io/models/agents/isaac-sim/",
+            "exec": "https://secorolab.github.io/models/execution/isaac-pickplace/"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "exec:agn-panda-sim", "@type": "agn:ModelledAgent",
+            "of-agent": "isaac-agn:panda", "has-agn-model": "lab-sim:isaac-franka",
+            "has-config": {
+                "position": [0.0, 0.0, 0.15]
+            }
+        },
+        {
+            "@id": "exec:agn-ur10-sim", "@type": "agn:ModelledAgent",
+            "of-agent": "isaac-agn:ur10", "has-agn-model": "lab-sim:isaac-ur10",
+            "has-config": {
+                "position": [0.0, 0.0, 0.2], "attach_gripper": "true"
+            }
+        },
+        {
+            "@id": "exec:obj-table-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-table", "has-obj-model": "lab-sim:obj-thorlabs-table",
+            "has-config": {
+                "position": [0.0, 0.0, 0.05], "scale": [1.0, 2.0, 0.2]
+            }
+        },
+        {
+            "@id": "exec:obj-shelf-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-shelf", "has-obj-model": "lab-sim:obj-thorlabs-table",
+            "has-config": {
+                "position": [1.0, 1.0, 0.05], "scale": [1.0, 1.5, 1.0]
+            }
+        },
+        {
+            "@id": "exec:obj-bin1-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-bin1", "has-obj-model": "lab-sim:obj-klt-bin",
+            "has-config": {
+                "position": [0.0, 0.6, 0.25], "scale": [1.0, 1.0, 0.9]
+            }
+        },
+        {
+            "@id": "exec:obj-bin2-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-bin2", "has-obj-model": "lab-sim:obj-klt-bin",
+            "has-config": {
+                "position": [0.0, -0.6, 0.25], "scale": [1.0, 1.0, 0.9]
+            }
+        },
+        {
+            "@id": "exec:obj-box-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-box", "has-obj-model": "lab-sim:obj-ycb-sugar-box"
+        },
+        {
+            "@id": "exec:obj-mug-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-mug", "has-obj-model": "lab-sim:obj-ycb-mug"
+        },
+        {
+            "@id": "exec:obj-bottle-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-bottle", "has-obj-model": "lab-sim:obj-ycb-mustard-bottle"
+        },
+        {
+            "@id": "exec:obj-cube1-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-cube1", "has-obj-model": "lab-sim:isaac-cuboid",
+            "has-config": {
+                "scale": [0.0315, 0.0315, 0.0315], "color": [0, 0, 1]
+            }
+        },
+        {
+            "@id": "exec:obj-cube2-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-cube2", "has-obj-model": "lab-sim:isaac-cuboid",
+            "has-config": {
+                "scale": [0.0315, 0.0315, 0.0315], "color": [0, 0, 1]
+            }
+        },
+        {
+            "@id": "exec:obj-cube3-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-cube3", "has-obj-model": "lab-sim:isaac-cuboid",
+            "has-config": {
+                "scale": [0.0315, 0.0315, 0.0315], "color": [0, 1, 0]
+            }
+        },
+        {
+            "@id": "exec:obj-cube4-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-cube4", "has-obj-model": "lab-sim:isaac-cuboid",
+            "has-config": {
+                "scale": [0.0315, 0.0315, 0.0315], "color": [0, 1, 0]
+            }
+        },
+        {
+            "@id": "exec:obj-ball1-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-ball1", "has-obj-model": "lab-sim:isaac-sphere",
+            "has-config": {
+                "radius": 0.03, "color": [0, 0, 1]
+            }
+        },
+        {
+            "@id": "exec:obj-ball2-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-ball2", "has-obj-model": "lab-sim:isaac-sphere",
+            "has-config": {
+                "radius": 0.03, "color": [0, 0, 1]
+            }
+        },
+        {
+            "@id": "exec:obj-ball3-sim", "@type": "env:ModelledObject",
+            "of-object": "lab:obj-ball3", "has-obj-model": "lab-sim:isaac-sphere",
+            "has-config": {
+                "radius": 0.03, "color": [0, 1, 0]
+            }
+        }
+    ]
+}

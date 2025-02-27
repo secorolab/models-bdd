@@ -3,55 +3,89 @@
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/task.json",
         {
-            "@base": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
+            "var": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
             "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
-            "isaac": "https://secorolab.github.io/models/agents/isaac-sim/",
             "lab": "https://secorolab.github.io/models/environments/secorolab/",
+            "isaac-agn": "https://secorolab.github.io/models/agents/isaac-sim/",
             "scene-lab": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/",
             "scene-isaac": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/isaac/"
         }
     ],
     "@graph": [
         {
-            "@id": "var-target-obj", "@type": "bdd:TaskVariation",
-            "of-task": "tmpl:task-pickplace",
-            "of-variable": "tmpl:var-target-obj",
-            "can-be": [ "lab:obj-bottle", "lab:obj-ball" ]
+            "@id": "var:comb-objects", "@type": "bdd:Combination",
+            "repetition": "false",
+            "length": 1, "from": [
+                "lab:obj-ball1", "lab:obj-ball2", "lab:obj-ball3",
+                "lab:obj-cube1", "lab:obj-cube2", "lab:obj-cube3", "lab:obj-cube4"
+            ]
         },
         {
-            "@id": "var-agent", "@type": "bdd:TaskVariation",
-            "of-task": "tmpl:task-pickplace",
-            "of-variable": "tmpl:var-agent",
-            "can-be": [ "isaac:panda" ]
+            "@id": "var:comb-workspaces", "@type": "bdd:Combination",
+            "repetition": "false",
+            "length": 1, "from": [ "lab:ws-bin1", "lab:ws-bin2" ]
         },
         {
-            "@id": "var-pick-ws", "@type": "bdd:TaskVariation",
+            "@id": "var:var-table", "@type": [ "bdd:TaskVariation", "bdd:TableVariation" ],
             "of-task": "tmpl:task-pickplace",
-            "of-variable": "tmpl:var-pick-ws",
-            "can-be": [ "lab:ws-table", "lab:ws-shelf" ]
+            "variable-list": [ "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws" ],
+            "rows": [
+                [ "lab:obj-bottle", "lab:ws-table", "lab:ws-shelf" ],
+                [ "lab:obj-ball1", "lab:ws-table", "lab:ws-shelf" ],
+                [ "lab:obj-bottle", "lab:ws-shelf", "lab:ws-table" ],
+                [ "lab:obj-ball1", "lab:ws-table", "lab:ws-table" ]
+            ]
         },
         {
-            "@id": "var-place-ws", "@type": "bdd:TaskVariation",
+            "@id": "var:var-product-panda", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
             "of-task": "tmpl:task-pickplace",
-            "of-variable": "tmpl:var-place-ws",
-            "can-be": [ "lab:ws-table", "lab:ws-shelf" ]
+            "variable-list": [
+                "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws", "tmpl:var-agent"
+            ],
+            "of-sets": [
+                "var:comb-objects",
+                [ "lab:ws-table" ],
+                "var:comb-workspaces",
+                [ "isaac-agn:panda" ]
+            ]
         },
         {
-            "@id": "scr-var-panda-pickplace", "@type": "bdd:ScenarioVariant",
+            "@id": "var:var-product-ur10", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
+            "of-task": "tmpl:task-pickplace",
+            "variable-list": [
+                "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws", "tmpl:var-agent"
+            ],
+            "of-sets": [
+                "var:comb-objects",
+                [ "lab:ws-table" ],
+                "var:comb-workspaces",
+                [ "isaac-agn:ur10" ]
+            ]
+        },
+        {
+            "@id": "var:scr-var-panda-pickplace", "@type": "bdd:ScenarioVariant",
             "of-template": "tmpl:tmpl-pickplace",
             "has-scene": [
                 "scene-lab:scn-pickplace-secorolab-objects",
                 "scene-lab:scn-pickplace-secorolab-workspaces",
                 "scene-isaac:scn-pickplace-isaac-panda"
             ],
-            "has-variation": [
-                "var-target-obj", "var-agent", "var-pick-ws", "var-place-ws"
-            ]
+            "has-variation": "var:var-product-panda"
         },
         {
-            "@id": "us-pickplace", "@type": "bdd:UserStory",
+            "@id": "var:scr-var-ur10-pickplace", "@type": "bdd:ScenarioVariant",
+            "of-template": "tmpl:tmpl-pickplace",
+            "has-scene": [
+                "scene-lab:scn-pickplace-secorolab-objects",
+                "scene-lab:scn-pickplace-secorolab-workspaces",
+                "scene-isaac:scn-pickplace-isaac-ur10"
+            ],
+            "has-variation": "var:var-product-ur10"
+        },
+        {
+            "@id": "var:us-pickplace", "@type": "bdd:UserStory",
             "has-criteria": [
-                "scr-var-panda-pickplace"
+                "var:scr-var-panda-pickplace"
             ]
         }
     ]

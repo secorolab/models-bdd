@@ -1,0 +1,124 @@
+{
+    "@context": [
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/behaviour.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/task.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/time.json",
+        {
+            "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
+            "scene": "https://secorolab.github.io/models/acceptance-criteria/bdd/scenes/secorolab/"
+        }
+    ],
+    "@graph": [
+        { "@id": "tmpl:bhv-pickplace", "@type": ["bhv:Behaviour", "bhv:Pick", "bhv:Place"] },
+        { "@id": "tmpl:task-sorting", "@type": "task:Task" },
+
+        { "@id": "tmpl:evt-pick-start", "@type": "time:Event" },
+        { "@id": "tmpl:evt-place-end", "@type": "time:Event" },
+        { "@id": "tmpl:evt-sort-end", "@type": "time:Event" },
+
+        { "@id": "tmpl:sorting-given", "@type": "bdd:Given" },
+        { "@id": "tmpl:sorting-when", "@type": "bdd:When" },
+        { "@id": "tmpl:sorting-then", "@type": "bdd:Then" },
+        {
+            "@id": "tmpl:scenario-sorting", "@type": "bdd:Scenario",
+            "of-behaviour": "tmpl:bhv-pickplace",
+            "of-task": "tmpl:task-sorting",
+            "given": "tmpl:sorting-given",
+            "when": "tmpl:sorting-when",
+            "then": "tmpl:sorting-then"
+        },
+
+        { "@id": "tmpl:var-pick-ws", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-sort-workspaces", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-sort-objects", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-forall-obj", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-exists-ws", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-agent", "@type": "bdd:ScenarioVariable" },
+
+        {
+           "@id": "tmpl:ftc-before-pick", "@type": ["time:TimeConstraint", "time:BeforeEventConstraint"],
+           "before-event": "tmpl:evt-pick-start"
+        },
+        {
+           "@id": "tmpl:ftc-after-place", "@type": ["time:TimeConstraint", "time:AfterEventConstraint"],
+           "after-event": "tmpl:evt-place-end"
+        },
+        {
+           "@id": "tmpl:ftc-after-sort", "@type": ["time:TimeConstraint", "time:AfterEventConstraint"],
+           "after-event": "tmpl:evt-sort-end"
+        },
+        {
+           "@id": "tmpl:ftc-during-pickplace", "@type": ["time:TimeConstraint", "time:DuringEventsConstraint"],
+           "after-event": "tmpl:evt-pick-start", "before-event": "tmpl:evt-place-end"
+        },
+
+        {
+            "@id": "tmpl:forall-sort-objects", "@type": "bdd:ForAll",
+            "variable": "var-forall-obj", "in-set": "tmpl:var-sort-objects",
+            "clause-of": "tmpl:sorting-when",
+            "has-clause": [
+                "tmpl:flc-located-at-pick-ws", "tmpl:when-pickplace",
+                "tmpl:flc-move-safely", "tmpl:exists-place-ws"
+            ]
+        },
+
+        {
+           "@id": "tmpl:flc-located-at-pick-ws", "@type": ["bdd:FluentClause", "bdd:LocatedAtPredicate"],
+           "clause-of": "tmpl:sorting-given",
+           "holds-at": "tmpl:ftc-before-pick",
+           "ref-object": "tmpl:var-forall-obj",
+           "ref-workspace": "tmpl:var-pick-ws"
+        },
+
+        {
+            "@id": "tmpl:when-pickplace", "@type": "bdd:WhenBehaviour",
+            "of-behaviour": "tmpl:bhv-pickplace",
+            "clause-of": "tmpl:sorting-when",
+            "target-obj": "tmpl:var-forall-obj",
+            "target-agn": "tmpl:var-agent",
+            "target-ws": "tmpl:var-exists-ws"
+        },
+
+        {
+            "@id": "tmpl:exists-place-ws", "@type": "bdd:ThereExists",
+            "variable": "tmpl:var-exists-ws", "in-set": "tmpl:var-sort-workspaces",
+            "clause-of": "tmpl:sorting-then",
+            "has-clause": [
+                "tmpl:flc-located-at-place-ws"
+            ]
+        },
+
+        {
+           "@id": "tmpl:flc-located-at-place-ws", "@type": ["bdd:FluentClause", "bdd:LocatedAtPredicate"],
+           "clause-of": "tmpl:sorting-then",
+           "holds-at": "tmpl:ftc-after-place",
+           "ref-object": "tmpl:var-forall-obj",
+           "ref-workspace": "tmpl:var-exists-ws"
+        },
+
+        {
+           "@id": "tmpl:flc-move-safely", "@type": ["bdd:FluentClause", "bdd:MoveSafelyPredicate"],
+           "clause-of": "tmpl:sorting-then",
+           "holds-at": "tmpl:ftc-during-pickplace",
+           "ref-agent": "tmpl:var-agent"
+        },
+
+        {
+           "@id": "tmpl:flc-sorted", "@type": ["bdd:FluentClause", "bdd:SortedIntoPredicate"],
+           "clause-of": "tmpl:sorting-then",
+           "holds-at": "tmpl:ftc-after-sort",
+           "ref-object": "tmpl:var-sort-objects",
+           "ref-workspace": "tmpl:var-sort-workspaces"
+        },
+
+        {
+            "@id": "tmpl:tmpl-sorting", "@type": "bdd:ScenarioTemplate",
+            "of-scenario": "tmpl:scenario-sorting",
+            "has-scene": "scene:scn-pickplace",
+            "has-clause": [
+                "tmpl:forall-sort-objects", "tmpl:flc-sorted"
+           ]
+        }
+    ]
+}
