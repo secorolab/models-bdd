@@ -30,8 +30,8 @@
         },
 
         { "@id": "tmpl:var-pick-ws", "@type": "bdd:ScenarioVariable" },
-        { "@id": "tmpl:var-sort-workspaces", "@type": "bdd:ScenarioVariable" },
-        { "@id": "tmpl:var-sort-objects", "@type": "bdd:ScenarioVariable" },
+        { "@id": "tmpl:var-sort-workspaces", "@type": [ "bdd:ScenarioVariable", "bdd:Set" ] },
+        { "@id": "tmpl:var-sort-objects", "@type": [ "bdd:ScenarioVariable", "bdd:Set" ] },
         { "@id": "tmpl:var-forall-obj", "@type": "bdd:ScenarioVariable" },
         { "@id": "tmpl:var-exists-ws", "@type": "bdd:ScenarioVariable" },
         { "@id": "tmpl:var-agent", "@type": "bdd:ScenarioVariable" },

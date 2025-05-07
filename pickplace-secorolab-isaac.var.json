@@ -13,27 +13,35 @@
     ],
     "@graph": [
         {
+            "@id": "var:obj-set", "@type": [ "bdd:ConstantSet", "bdd:Set" ],
+            "elements": [
+                "lab:obj-cube1", "lab:obj-cube2", "lab:obj-cube3", "lab:obj-cube4",
+                "lab:obj-ball1", "lab:obj-ball2", "lab:obj-ball3"
+            ]
+        },
+        {
             "@id": "var:comb-objects", "@type": "bdd:Combination",
             "repetition": "false",
-            "length": 1, "from": [
-                "lab:obj-ball1", "lab:obj-ball2", "lab:obj-ball3",
-                "lab:obj-cube1", "lab:obj-cube2", "lab:obj-cube3", "lab:obj-cube4"
-            ]
+            "length": 3, "from": "var:obj-set"
+        },
+        {
+            "@id": "var:ws-set", "@type": [ "bdd:ConstantSet", "bdd:Set" ],
+            "elements": [ "lab:ws-bin1", "lab:ws-bin2" ]
         },
         {
             "@id": "var:comb-workspaces", "@type": "bdd:Combination",
             "repetition": "false",
-            "length": 1, "from": [ "lab:ws-bin1", "lab:ws-bin2" ]
+            "length": 2, "from": "var:ws-set"
         },
         {
             "@id": "var:var-table", "@type": [ "bdd:TaskVariation", "bdd:TableVariation" ],
             "of-task": "tmpl:task-pickplace",
-            "variable-list": [ "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws" ],
+            "variable-list": [ "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws", "tmpl:var-agent" ],
             "rows": [
-                [ "lab:obj-bottle", "lab:ws-table", "lab:ws-shelf" ],
-                [ "lab:obj-ball1", "lab:ws-table", "lab:ws-shelf" ],
-                [ "lab:obj-bottle", "lab:ws-shelf", "lab:ws-table" ],
-                [ "lab:obj-ball1", "lab:ws-table", "lab:ws-table" ]
+                [ "lab:obj-bottle", "lab:ws-table", "lab:ws-shelf", "isaac-agn:panda" ],
+                [ "lab:obj-ball1", "lab:ws-table", "lab:ws-shelf", "isaac-agn:panda" ],
+                [ "lab:obj-bottle", "lab:ws-shelf", "lab:ws-table", "isaac-agn:panda" ],
+                [ "lab:obj-ball1", "lab:ws-table", "lab:ws-table", "isaac-agn:panda" ]
             ]
         },
         {

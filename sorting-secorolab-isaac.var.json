@@ -13,17 +13,25 @@
     ],
     "@graph": [
         {
-            "@id": "var:comb-sort-objects", "@type": "bdd:Combination",
-            "repetition": "false",
-            "length": 3, "from": [
+            "@id": "var:obj-set", "@type": [ "bdd:ConstantSet", "bdd:Set" ],
+            "elements": [
                 "lab:obj-cube1", "lab:obj-cube2", "lab:obj-cube3", "lab:obj-cube4",
                 "lab:obj-ball1", "lab:obj-ball2", "lab:obj-ball3"
             ]
         },
         {
+            "@id": "var:comb-sort-objects", "@type": "bdd:Combination",
+            "repetition": "false",
+            "length": 3, "from": "var:obj-set"
+        },
+        {
+            "@id": "var:ws-set", "@type": [ "bdd:ConstantSet", "bdd:Set" ],
+            "elements": [ "lab:ws-bin1", "lab:ws-bin2" ]
+        },
+        {
             "@id": "var:comb-sort-workspaces", "@type": "bdd:Combination",
             "repetition": "false",
-            "length": 2, "from": [ "lab:ws-bin1", "lab:ws-bin2" ]
+            "length": 2, "from": "var:ws-set"
         },
         {
             "@id": "var:var-product", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
