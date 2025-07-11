@@ -22,7 +22,7 @@
         {
             "@id": "var:comb-objects", "@type": "bdd:Combination",
             "repetition": "false",
-            "length": 3, "from": "var:obj-set"
+            "length": 1, "from": "var:obj-set"
         },
         {
             "@id": "var:ws-set", "@type": [ "bdd:ConstantSet", "bdd:Set" ],
@@ -31,7 +31,7 @@
         {
             "@id": "var:comb-workspaces", "@type": "bdd:Combination",
             "repetition": "false",
-            "length": 2, "from": "var:ws-set"
+            "length": 1, "from": "var:ws-set"
         },
         {
             "@id": "var:var-table", "@type": [ "bdd:TaskVariation", "bdd:TableVariation" ],
