@@ -5,12 +5,16 @@
         "https://comp-rob2b.github.io/metamodels/geometry/spatial-relations.json",
         "https://comp-rob2b.github.io/metamodels/qudt.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/behaviour.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/time.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/observation.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/ros.json",
         "https://secorolab.github.io/metamodels/languages/python.json",
         {
             "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
+            "var": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
             "obs-ros": "https://secorolab.github.io/models/observation/ros/",
+            "bhv-ros": "https://secorolab.github.io/models/behaviour/ros/",
             "lab-geom": "https://secorolab.github.io/models/environments/secorolab/geometry/"
         }
     ],
@@ -45,26 +49,46 @@
                 "VectorXYZ"
             ],
             "unit": "M",
-            "message-type": "geometry_msgs/msg/PointStamped",
+            "type-name": "geometry_msgs/msg/PointStamped",
             "as-seen-by": "lab-geom:base-link-frame",
-            "topic-name": "/obj-bin1-position"
+            "channel-name": "/obj-bin1-position"
         },
         { "@id": "tmpl:flc-located-at-pick-ws", "horizon-seconds": 1.5 },
         { "@id": "tmpl:flc-located-at-place-ws", "horizon-seconds": 1.5 },
         {
-            "@id": "tmpl:flc-located-at-pick-ws", "@type": [ "ObservationPolicy", "ROSTopic" ],
-            "message-type": "bdd_ros2_interfaces/TrinaryStamped",
-            "topic-name": "/obs_policy/located_at_pick_ws"
+            "@id": "obs-ros:located-at-pick-topic", "@type": [ "ObservationPolicy", "ROSTopic" ],
+            "of-clause": "tmpl:flc-located-at-pick-ws",
+            "type-name": "bdd_ros2_interfaces/TrinaryStamped",
+            "channel-name": "/obs_policy/located_at_pick_ws"
         },
         {
-            "@id": "tmpl:flc-is-held", "@type": [ "ObservationPolicy", "ROSTopic" ],
-            "message-type": "bdd_ros2_interfaces/TrinaryStamped",
-            "topic-name": "/obs_policy/is_held"
+            "@id": "obs-ros:is-held-topic", "@type": [ "ObservationPolicy", "ROSTopic" ],
+            "of-clause": "tmpl:flc-is-held",
+            "type-name": "bdd_ros2_interfaces/TrinaryStamped",
+            "channel-name": "/obs_policy/is_held"
         },
         {
-            "@id": "tmpl:flc-located-at-place-ws", "@type": [ "ObservationPolicy", "ROSTopic" ],
-            "message-type": "bdd_ros2_interfaces/TrinaryStamped",
-            "topic-name": "/obs_policy/located_at_place_ws"
+            "@id": "obs-ros:located-at-place-topic", "@type": [ "ObservationPolicy", "ROSTopic" ],
+            "of-clause": "tmpl:flc-located-at-place-ws",
+            "type-name": "bdd_ros2_interfaces/TrinaryStamped",
+            "channel-name": "/obs_policy/located_at_place_ws"
+        },
+        {
+            "@id": "bhv-ros:pickplace-mockup", "@type": [ "BehaviourImplementation", "ROSAction" ],
+            "of-behaviour": "tmpl:bhv-pickplace",
+            "type-name": "bdd_ros2_interfaces/Behaviour", "channel-name": "/bdd/mockup_bhv_server"
+        },
+        {
+            "@id": "obs-ros:pickplace-ros", "@type": "bdd:ScenarioExecution",
+            "of-variant": [
+                "var:scr-var-panda-pickplace", "var:scr-var-panda-sorting", "var:scr-var-ur10-pickplace"
+            ],
+            "has-behaviour-impl": "bhv-ros:pickplace-mockup",
+            "has-policy": [
+                "obs-ros:located-at-pick-topic",
+                "obs-ros:is-held-topic",
+                "obs-ros:located-at-place-topic"
+            ]
         }
     ]
 }

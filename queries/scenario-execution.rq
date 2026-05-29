@@ -1,21 +1,26 @@
 # SPDX-License-Identifier:  MPL-2.0
 PREFIX bhv: <https://secorolab.github.io/metamodels/behaviour#>
 PREFIX bdd: <https://secorolab.github.io/metamodels/acceptance-criteria/bdd#>
+PREFIX obs: <https://secorolab.github.io/metamodels/observation#>
 
 CONSTRUCT {
     ?scenarioExec a ?execType ;
         bdd:of-variant ?scenarioVar ;
         bdd:of-template ?scenarioTmpl ;
-        bdd:has-behaviour-impl ?bhvImpl .
+        bdd:has-behaviour-implementation ?bhvImpl ;
+        obs:has-policy ?obsPolicy .
     ?bhvImpl a ?bhvImplType ;
         bhv:of-behaviour ?behaviour .
+    ?obsPolicy a ?obsPolicyType ;
+        bdd:of-clause ?fluentClause .
     ?behaviour a ?bhvType .
 }
 WHERE {
     ?scenarioExec a bdd:ScenarioExecution ;
         a ?execType ;
         bdd:of-variant ?scenarioVar ;
-        bdd:has-behaviour-impl ?bhvImpl .
+        bdd:has-behaviour-implementation ?bhvImpl ;
+        obs:has-policy ?obsPolicy .
 
     ?scenarioVar a bdd:ScenarioVariant ;
         bdd:of-template ?scenarioTmpl .
@@ -27,6 +32,11 @@ WHERE {
         a bdd:BehaviourImplementation ;
         a ?bhvImplType ;
         bhv:of-behaviour ?behaviour .
+
+    ?obsPolicy
+        a obs:ObservationPolicy ;
+        a ?obsPolicyType ;
+        bdd:of-clause ?fluentClause .
 
     ?behaviour
         a bhv:Behaviour ;
