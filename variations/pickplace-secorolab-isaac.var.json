@@ -45,7 +45,7 @@
             ]
         },
         {
-            "@id": "var:var-product-panda", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
+            "@id": "var:var-product", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
             "of-task": "tmpl:task-pickplace",
             "variable-list": [
                 "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws", "tmpl:var-agent"
@@ -54,46 +54,22 @@
                 "var:comb-objects",
                 [ "lab:ws-table" ],
                 "var:comb-workspaces",
-                [ "isaac-agn:panda" ]
+                [ "isaac-agn:panda", "isaac-agn:ur10" ]
             ]
         },
         {
-            "@id": "var:var-product-ur10", "@type": [ "bdd:TaskVariation", "bdd:CartesianProductVariation" ],
-            "of-task": "tmpl:task-pickplace",
-            "variable-list": [
-                "tmpl:var-target-obj", "tmpl:var-pick-ws", "tmpl:var-place-ws", "tmpl:var-agent"
-            ],
-            "of-sets": [
-                "var:comb-objects",
-                [ "lab:ws-table" ],
-                "var:comb-workspaces",
-                [ "isaac-agn:ur10" ]
-            ]
-        },
-        {
-            "@id": "var:scr-var-panda-pickplace", "@type": "bdd:ScenarioVariant",
+            "@id": "var:scr-var-pickplace", "@type": "bdd:ScenarioVariant",
             "of-template": "tmpl:tmpl-pickplace",
             "has-scene": [
                 "scene-lab:scn-pickplace-secorolab-objects",
-                "scene-lab:scn-pickplace-secorolab-workspaces",
-                "scene-isaac:scn-pickplace-isaac-panda"
+                "scene-lab:scn-pickplace-secorolab-workspaces"
             ],
-            "has-variation": "var:var-product-panda"
-        },
-        {
-            "@id": "var:scr-var-ur10-pickplace", "@type": "bdd:ScenarioVariant",
-            "of-template": "tmpl:tmpl-pickplace",
-            "has-scene": [
-                "scene-lab:scn-pickplace-secorolab-objects",
-                "scene-lab:scn-pickplace-secorolab-workspaces",
-                "scene-isaac:scn-pickplace-isaac-ur10"
-            ],
-            "has-variation": "var:var-product-ur10"
+            "has-variation": "var:var-product"
         },
         {
             "@id": "var:us-pickplace", "@type": "bdd:UserStory",
             "has-criteria": [
-                "var:scr-var-panda-pickplace"
+                "var:scr-var-pickplace"
             ]
         }
     ]

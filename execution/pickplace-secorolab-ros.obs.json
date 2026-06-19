@@ -13,6 +13,7 @@
         {
             "tmpl": "https://secorolab.github.io/models/acceptance-criteria/bdd/templates/",
             "var": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-isaac/",
+            "var-grc": "https://secorolab.github.io/models/acceptance-criteria/bdd/variants/pickplace-grc/",
             "obs-ros": "https://secorolab.github.io/models/observation/ros/",
             "bhv-ros": "https://secorolab.github.io/models/behaviour/ros/",
             "lab-geom": "https://secorolab.github.io/models/environments/secorolab/geometry/"
@@ -81,7 +82,7 @@
         {
             "@id": "obs-ros:pickplace-ros", "@type": "bdd:ScenarioExecution",
             "of-variant": [
-                "var:scr-var-panda-pickplace", "var:scr-var-panda-sorting", "var:scr-var-ur10-pickplace"
+                "var:scr-var-pickplace", "var:scr-var-sorting", "var-grc:scr-var-grc"
             ],
             "has-behaviour-impl": "bhv-ros:pickplace-mockup",
             "has-policy": [

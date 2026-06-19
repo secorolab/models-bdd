@@ -43,23 +43,22 @@
                 "var:comb-sort-objects",
                 [ "lab:ws-table" ],
                 "var:comb-sort-workspaces",
-                [ "isaac-agn:panda" ]
+                [ "isaac-agn:panda", "isaac-agn:ur10" ]
             ]
         },
         {
-            "@id": "var:scr-var-panda-sorting", "@type": "bdd:ScenarioVariant",
+            "@id": "var:scr-var-sorting", "@type": "bdd:ScenarioVariant",
             "of-template": "tmpl:tmpl-sorting",
             "has-scene": [
                 "scene-lab:scn-sorting-secorolab-objects",
-                "scene-lab:scn-sorting-secorolab-workspaces",
-                "scene-isaac:scn-pickplace-isaac-panda"
+                "scene-lab:scn-sorting-secorolab-workspaces"
             ],
             "has-variation": "var:var-product"
         },
         {
             "@id": "var:us-sorting", "@type": "bdd:UserStory",
             "has-criteria": [
-                "var:scr-var-panda-sorting"
+                "var:scr-var-sorting"
             ]
         }
     ]
