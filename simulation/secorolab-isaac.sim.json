@@ -3,6 +3,7 @@
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/bdd.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/environment.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/agent.json",
+        "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/execution-context.json",
         "https://secorolab.github.io/metamodels/acceptance-criteria/bdd/simulation.json",
         "https://secorolab.github.io/metamodels/languages/python.json",
         {
@@ -20,37 +21,37 @@
         },
         {
             "@id": "lab-sim:obj-ycb-cracker-box",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/003_cracker_box.usd"
         },
         {
             "@id": "lab-sim:obj-ycb-sugar-box",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/004_sugar_box.usd"
         },
         {
             "@id": "lab-sim:obj-ycb-tomato-soup-can",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/005_tomato_soup_can.usd"
         },
         {
             "@id": "lab-sim:obj-ycb-mustard-bottle",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/YCB/Axis_Aligned_Physics/006_mustard_bottle.usd"
         },
         {
             "@id": "lab-sim:obj-ycb-mug",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/Mugs/SM_Mug_A2.usd"
         },
         {
             "@id": "lab-sim:obj-klt-bin",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/KLT_Bin/small_KLT.usd"
         },
         {
             "@id": "lab-sim:obj-thorlabs-table",
-            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "sim:ResourceWithPath", "usd:UsdFile" ],
+            "@type": [ "env:ObjectModel", "isaacsim:IsaacResource", "exec:ResourceWithPath", "usd:UsdFile" ],
             "path": "/Isaac/Props/Mounts/ThorlabsTable/table_instanceable.usd"
         },
         {
